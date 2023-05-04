@@ -1,0 +1,32 @@
+version: "3"
+services:
+  db:
+    build:
+      context: ./db/
+    container_name: db
+    ports: 
+      - 5434:5432
+    environment:
+      - "ALLOW_EMPTY_PASSWORD=yes"
+      - "POSTGRES_PASSWORD=P4s5$$"
+    networks:
+      - wordsmithnet
+  words:
+    build:
+      context: ./words/
+    container_name: words
+    ports:
+      - 8080:8081
+    networks:
+      - wordsmithnet
+  web:
+    build:
+      context: ./web/
+    container_name: web
+    ports:
+      - 80:8082
+    networks:
+      - wordsmithnet
+networks:
+  wordsmithnet:
+    name: wordsmithnet
